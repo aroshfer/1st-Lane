@@ -1,0 +1,20 @@
+{
+  "name": "1st-lane-website",
+  "version": "1.0.0",
+  "description": "Welcome to the official website of **1st Lane**, a vibrant Sri Lankan band that brings together the best of local music and culture. This website serves as a hub for fans to explore our music, upcoming events, and more.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.3",
+    "express": "^4.21.2",
+    "mongoose": "^8.10.1",
+    "mysql": "^2.18.1",
+    "nodemailer": "^6.10.0",
+    "stripe": "^17.6.0"
+  }
+}

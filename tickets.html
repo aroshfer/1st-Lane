@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buy Tickets - 1st Lane</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Buy Tickets</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="index.html#gallery">Gallery</a></li>
+                <li><a href="index.html#contact">Contact</a></li>               
+            </ul>
+        </nav>
+    </header>
+
+    <section id="tickets">
+        <h2>Upcoming Events</h2>
+        <p>Get your tickets for our upcoming performances!</p>
+        <div class="event">
+            <h3>Choir Fest 2025</h3>
+            <p>Date: July 13, 2025</p>
+            <p>Location: St. Sebastian's College Auditorium, Moratuwa</p>
+            <p>Join us for an unforgettable night of music and entertainment at the Choir Fest 2025. Experience the vibrant sounds of 1st Lane live on stage.</p>
+            <p>Price: Rs.1000</p>
+            <button class="button" onclick="openForm('Choir Fest 2025', 1000)">Buy Tickets</button>
+        </div>
+    </section>
+
+    <div id="ticketForm" class="modal">
+        <form class="modal-content" id="ticketPurchaseForm" onsubmit="emailSend(); reset(); return false;">
+            <span onclick="document.getElementById('ticketForm').style.display='none'" class="close" title="Close Modal">&times;</span>
+            <h2>Buy Tickets</h2>
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" required>
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="event">Event</label>
+            <input type="text" id="event" name="event" readonly>
+
+            <label for="quantity">Quantity</label>
+            <input type="number" id="quantity" name="quantity" min="1" max="10" required>
+
+            <label for="price">Price</label>
+            <input type="text" id="price" name="price" readonly>
+
+            <label for="payment-method">Payment Method</label>
+            <select id="payment-method" name="payment-method" required>
+                <option value="transfer">Online Transfer</option>
+            </select>
+
+            <div id="transfer-details">
+                <p>Please transfer the amount to the following bank account:</p>
+                <p>Bank: ABC Bank</p>
+                <p>Account Number: 123456789</p>
+                <p>Account Name: 1st Lane</p>
+                <p>SWIFT Code: ABCD1234</p>
+                <p>Attach the recipt to the email</p>
+            </div>
+
+            <button type="submit" class="button">Submit</button>
+        </form>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <span>Follow us:</span>
+                <h3>1st Lane</h3>
+            </div>
+            <div class="footer-social">
+                <a href="#"><img src="img/facebook-circle-logo-24 (1).png" alt="Facebook">Facebook</a>
+                <a href="#"><img src="img/tiktok-logo-24.png" alt="Tiktok">Tiktok</a>
+                <a href="#"><img src="img/instagram-logo-24.png" alt="Instagram">Instagram</a>
+                <a href="#"><img src="img/youtube-logo-24.png" alt="YouTube">YouTube</a>
+            </div>
+            <div class="footer-contact">
+                <p>Email: <a href="mailto:info@1stlane.com">info@1stlane.com</a></p>
+                <p>Phone: +94 123 456 789</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 1st Lane. All rights reserved.</p>
+            <!-- <p>&copy; 2025 1<sup>st</sup> Lane. All rights reserved.</p> -->
+        </div>
+    </footer>
+
+    <script>
+        function openForm(eventName, price) {
+            document.getElementById('event').value = eventName;
+            document.getElementById('price').value = `Rs.${price}`;
+            document.getElementById('ticketForm').style.display = 'block';
+        }
+
+        document.getElementById('ticketPurchaseForm').addEventListener('submit', (event) => {
+            event.preventDefault();
+
+            var price = parseFloat(document.getElementById('price').value.replace('Rs.', ''));
+            var quantity = parseInt(document.getElementById('quantity').value);
+            var totalAmount = price * quantity;
+
+            alert(`Ticket reserved successfully. Please transfer Rs.${totalAmount} to complete your booking.`);
+            document.getElementById('ticketForm').style.display = 'none';
+        });
+
+        // Close the modal when clicking outside of it
+        window.onclick = function(event) {
+            var modal = document.getElementById('ticketForm');
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        function emailSend() {
+            var name = document.getElementById('name').value;
+            var email = document.getElementById('email').value;
+            var event = document.getElementById('event').value;
+            var quantity = document.getElementById('quantity').value;
+
+            var messageBody  = 'Name: ' + name + 
+            "<br/> email" + email +
+            "<br/> event" + event +
+            "<br/> quantity" + quantity;
+           
+            Email.send({
+                Host : "smtp.mailendo.com",
+                Username : "fernandoarosha92@gmail.com",
+                Password : "DC0D2D0019E4C120F07AFFB863809C317A41",
+                To : 'fernandoarosha92@gmail.com',
+                From : "fernandoarosha92@gmail.com",
+                Subject : "This is the subject",
+                Body : messageBody
+            }).then(
+            message => alert(message)
+            );
+        }
+    </script>
+</body>
+</html>
